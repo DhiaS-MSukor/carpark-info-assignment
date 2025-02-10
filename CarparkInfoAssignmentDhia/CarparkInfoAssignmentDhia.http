@@ -1,6 +1,0 @@
-@CarparkInfoAssignmentDhia_HostAddress = http://localhost:5281
-
-GET {{CarparkInfoAssignmentDhia_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

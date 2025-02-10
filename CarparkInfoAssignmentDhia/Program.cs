@@ -1,3 +1,6 @@
+using CarparkInfoAssignmentDhia.Jobs;
+using Quartz;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddQuartz(q =>
+{
+    var jobKey = new JobKey("CarparkJob");
+
+    q.AddJob<CarparkJob>(opts => opts.WithIdentity(jobKey));
+
+    q.AddTrigger(opts => opts
+         .ForJob(jobKey)
+         .WithIdentity("CarparkJob-trigger")
+         .WithCronSchedule("0 * * * * ?")); // Cron: sec, min, hour, day, month, day-of-week.
+});
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var app = builder.Build();
 
