@@ -1,4 +1,4 @@
-using CarparkInfoAssignmentDhia.Jobs;
+using CarparkInfoAssignmentDhia.Jobs.Carpark;
 using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,16 +10,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<CarparkJobSettings>(builder.Configuration.GetSection("CsvSettings"));
+
 builder.Services.AddQuartz(q =>
 {
     var jobKey = new JobKey("CarparkJob");
 
     q.AddJob<CarparkJob>(opts => opts.WithIdentity(jobKey));
+    //q.UsePersistentStore(s => s.UseMicrosoftSQLite(""));
 
     q.AddTrigger(opts => opts
          .ForJob(jobKey)
          .WithIdentity("CarparkJob-trigger")
-         .WithCronSchedule("0 * * * * ?")); // Cron: sec, min, hour, day, month, day-of-week.
+         .WithCronSchedule("* * * * * ?")); // Cron: sec, min, hour, day, month, day-of-week.
 });
 
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
