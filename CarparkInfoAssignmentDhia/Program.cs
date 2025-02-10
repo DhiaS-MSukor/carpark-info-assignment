@@ -1,6 +1,7 @@
 using CarparkInfoAssignmentDhia.CarparkInfo;
 using CarparkInfoAssignmentDhia.Jobs;
 using CarparkInfoAssignmentDhia.SettingsDtos;
+using Microsoft.EntityFrameworkCore;
 using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,19 +15,23 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<CarparkInfoJobSettings>(builder.Configuration.GetSection("CsvSettings"));
 
-builder.Services.AddPooledDbContextFactory<CarparkContext>(c => { });
+builder.Services.AddPooledDbContextFactory<CarparkContext>(c => c.UseSqlite("Data Source=:memory:;"));
 
 builder.Services.AddQuartz(q =>
 {
     var jobKey = new JobKey("CarparkJob");
 
     q.AddJob<CarparkInfoJob>(opts => opts.WithIdentity(jobKey));
-    //q.UsePersistentStore(s => s.UseMicrosoftSQLite(""));
 
     q.AddTrigger(opts => opts
          .ForJob(jobKey)
          .WithIdentity("CarparkJob-trigger")
-         .WithCronSchedule("* * * * * ?")); // Cron: sec, min, hour, day, month, day-of-week.
+         .WithCronSchedule("0 0 1 * * ?")); // Cron: sec, min, hour, day, month, day-of-week.
+
+    q.AddTrigger(opts => opts
+         .ForJob(jobKey)
+         .WithIdentity("CarparkJob-trigger-now")
+         .StartNow());
 });
 
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

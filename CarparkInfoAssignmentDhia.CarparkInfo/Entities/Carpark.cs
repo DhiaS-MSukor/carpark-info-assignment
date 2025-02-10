@@ -22,4 +22,5 @@ public class Carpark
     public virtual ParkingSystemType? ParkingSystemType { get; set; }
     public virtual ShortTermParkingType? ShortTermParkingType { get; set; }
     public virtual FreeParkingType? FreeParkingType { get; set; }
+    public virtual ICollection<UserFavoriteCarpark> UserFavoriteCarparks { get; set; } = new HashSet<UserFavoriteCarpark>();
 }

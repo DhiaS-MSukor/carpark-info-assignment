@@ -39,7 +39,7 @@ public class CarparkInfoJob : IJob
             logger.LogInformation("Processing file: {file}", fullPath);
 
             using var dbContext = await contextFactory.CreateDbContextAsync(context.CancellationToken);
-            using var transaction = dbContext.Database.BeginTransaction();
+            //using var transaction = dbContext.Database.BeginTransaction();
 
             try
             {
@@ -52,18 +52,10 @@ public class CarparkInfoJob : IJob
                 {
                     logger.LogInformation("Processing record: {Record}", record.car_park_no);
 
-                    var carparkType = await new CarParkTypeGetByName(record.car_park_type)
-                        .Query(dbContext.CarParkTypes)
-                        .LastOrDefaultAsync();
-                    var freeParkingType = await new FreeParkingTypeGetByName(record.free_parking)
-                        .Query(dbContext.FreeParkingTypes)
-                        .LastOrDefaultAsync();
-                    var parkingSystemType = await new ParkingSystemTypeGetByName(record.type_of_parking_system)
-                        .Query(dbContext.ParkingSystemTypes)
-                        .LastOrDefaultAsync();
-                    var shortTermParkingType = await new ShortTermParkingTypeGetByName(record.short_term_parking)
-                        .Query(dbContext.ShortTermParkingTypes)
-                        .LastOrDefaultAsync();
+                    var carparkType = await GetCarparkType(dbContext.CarParkTypes, record);
+                    var freeParkingType = await GetFreeParkingType(dbContext.FreeParkingTypes, record);
+                    var parkingSystemType = await GetParkingSystemType(dbContext.ParkingSystemTypes, record);
+                    var shortTermParkingType = await GetShortTermParkingType(dbContext.ShortTermParkingTypes, record);
 
                     var existing = await new CarParkGetByNo(record.car_park_no)
                         .Query(dbContext.Carparks)
@@ -90,14 +82,83 @@ public class CarparkInfoJob : IJob
                     }
                 }
 
-                await transaction.CommitAsync(context.CancellationToken);
+                await dbContext.SaveChangesAsync(context.CancellationToken);
+                //await transaction.CommitAsync(context.CancellationToken);
             }
             catch (Exception e)
             {
                 logger.LogError(e, "Error processing file {file}", file);
-                await transaction.RollbackAsync(CancellationToken.None);
+                //await transaction.RollbackAsync(CancellationToken.None);
             }
         }
+    }
+
+    private static async Task<ShortTermParkingType> GetShortTermParkingType(
+        DbSet<ShortTermParkingType> shortTermParkingTypes,
+        CsvDto record,
+        CancellationToken cancellationToken = default)
+    {
+        var shortTermParkingType = await new ShortTermParkingTypeGetByName(record.short_term_parking)
+                                .Query(shortTermParkingTypes)
+                                .FirstOrDefaultAsync(cancellationToken);
+        if (shortTermParkingType is null)
+        {
+            shortTermParkingType = new ShortTermParkingType { Name = record.short_term_parking };
+            await shortTermParkingTypes.AddAsync(shortTermParkingType, cancellationToken);
+        }
+
+        return shortTermParkingType;
+    }
+
+    private static async Task<ParkingSystemType> GetParkingSystemType(
+        DbSet<ParkingSystemType> parkingSystemTypes,
+        CsvDto record,
+        CancellationToken cancellationToken = default)
+    {
+        var parkingSystemType = await new ParkingSystemTypeGetByName(record.type_of_parking_system)
+                                .Query(parkingSystemTypes)
+                                .FirstOrDefaultAsync(cancellationToken);
+        if (parkingSystemType is null)
+        {
+            parkingSystemType = new ParkingSystemType { Name = record.type_of_parking_system };
+            await parkingSystemTypes.AddAsync(parkingSystemType, cancellationToken);
+        }
+
+        return parkingSystemType;
+    }
+
+    private static async Task<FreeParkingType> GetFreeParkingType(
+        DbSet<FreeParkingType> freeParkingTypes,
+        CsvDto record,
+        CancellationToken cancellationToken = default)
+    {
+        var freeParkingType = await new FreeParkingTypeGetByName(record.free_parking)
+                                .Query(freeParkingTypes)
+                                .FirstOrDefaultAsync(cancellationToken);
+        if (freeParkingType is null)
+        {
+            freeParkingType = new FreeParkingType { Name = record.free_parking };
+            await freeParkingTypes.AddAsync(freeParkingType, cancellationToken);
+        }
+
+        return freeParkingType;
+    }
+
+    private static async Task<CarParkType> GetCarparkType(
+        DbSet<CarParkType> carParkTypes,
+        CsvDto record,
+        CancellationToken cancellationToken = default)
+    {
+        var carparkType = await new CarParkTypeGetByName(record.car_park_type)
+                                .Query(carParkTypes)
+                                .FirstOrDefaultAsync(cancellationToken);
+        if (carparkType is null)
+        {
+            carparkType = new CarParkType { Name = record.car_park_type };
+            await carParkTypes.AddAsync(carparkType, cancellationToken);
+        }
+
+        return carparkType;
     }
 
     private static string[] LookForFiles(

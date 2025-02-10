@@ -8,9 +8,13 @@ public class FreeParkingTypeConfiguration : IEntityTypeConfiguration<FreeParking
 {
     public void Configure(EntityTypeBuilder<FreeParkingType> builder)
     {
+        builder.HasKey(x => x.Id);
+        builder.HasIndex(x => x.Name).IsUnique();
+
         builder.HasMany(x => x.Carparks)
             .WithOne(x => x.FreeParkingType)
             .HasPrincipalKey(x => x.Id)
-            .HasForeignKey(x => x.FreeParkingType_Id);
+            .HasForeignKey(x => x.FreeParkingType_Id)
+            .IsRequired();
     }
 }

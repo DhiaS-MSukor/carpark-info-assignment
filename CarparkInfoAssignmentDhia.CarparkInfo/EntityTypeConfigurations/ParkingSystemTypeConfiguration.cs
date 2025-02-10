@@ -8,9 +8,13 @@ public class ParkingSystemTypeConfiguration : IEntityTypeConfiguration<ParkingSy
 {
     public void Configure(EntityTypeBuilder<ParkingSystemType> builder)
     {
+        builder.HasKey(x => x.Id);
+        builder.HasIndex(x => x.Name).IsUnique();
+
         builder.HasMany(x => x.Carparks)
             .WithOne(x => x.ParkingSystemType)
             .HasPrincipalKey(x => x.Id)
-            .HasForeignKey(x => x.ParkingSystemType_Id);
+            .HasForeignKey(x => x.ParkingSystemType_Id)
+            .IsRequired();
     }
 }
