@@ -1,4 +1,4 @@
-using CarparkInfoAssignmentDhia.Models.Weather;
+using CarparkInfoAssignmentDhia.Weather.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarparkInfoAssignmentDhia.Controllers

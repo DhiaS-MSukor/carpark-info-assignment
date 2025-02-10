@@ -1,4 +1,4 @@
-namespace CarparkInfoAssignmentDhia.Models.Weather
+namespace CarparkInfoAssignmentDhia.Weather.Models
 {
     public class WeatherForecast
     {

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarparkInfoAssignmentDhia", "CarparkInfoAssignmentDhia\CarparkInfoAssignmentDhia.csproj", "{C59CBC95-8FBD-4009-AA67-70AA76972271}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarparkInfoAssignmentDhia.CarparkInfo", "CarparkInfoAssignmentDhia.CarparkInfo\CarparkInfoAssignmentDhia.CarparkInfo.csproj", "{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C59CBC95-8FBD-4009-AA67-70AA76972271}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C59CBC95-8FBD-4009-AA67-70AA76972271}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C59CBC95-8FBD-4009-AA67-70AA76972271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

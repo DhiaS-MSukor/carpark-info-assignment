@@ -1,16 +1,20 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CarparkInfoAssignmentDhia.Carpark.Dtos;
+using CarparkInfoAssignmentDhia.SettingsDtos;
+using CsvHelper;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Quartz;
 using Quartz.Logging;
+using System.Globalization;
 
-namespace CarparkInfoAssignmentDhia.Jobs.Carpark;
+namespace CarparkInfoAssignmentDhia.Jobs;
 
-public class CarparkJob : IJob
+public class CarparkInfoJob : IJob
 {
-    private readonly ILogger<CarparkJob> logger;
-    private readonly CarparkJobSettings settings;
+    private readonly ILogger<CarparkInfoJob> logger;
+    private readonly CarparkInfoJobSettings settings;
 
-    public CarparkJob(ILogger<CarparkJob> logger, IOptions<CarparkJobSettings> settings)
+    public CarparkInfoJob(ILogger<CarparkInfoJob> logger, IOptions<CarparkInfoJobSettings> settings)
     {
         this.logger = logger;
         this.settings = settings.Value;
@@ -23,11 +27,28 @@ public class CarparkJob : IJob
         {
             var fullPath = Path.GetFullPath(file);
             logger.LogInformation("Processing file: {file}", fullPath);
+
+            try
+            {
+                using var reader = new StreamReader(file);
+                using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+                var records = csv.GetRecordsAsync<CvsModel>(context.CancellationToken);
+
+                await foreach (var record in records)
+                {
+                    logger.LogInformation("Processing record: {Record}", record.car_park_no);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Error processing file {file}", file);
+            }
         }
     }
 
     private static string[] LookForFiles(
-        ILogger<CarparkJob> logger,
+        ILogger<CarparkInfoJob> logger,
         string? baseFilePath,
         string? dateSuffixFormat,
         string? filePrefix,

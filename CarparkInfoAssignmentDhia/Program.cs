@@ -1,4 +1,5 @@
-using CarparkInfoAssignmentDhia.Jobs.Carpark;
+using CarparkInfoAssignmentDhia.Jobs;
+using CarparkInfoAssignmentDhia.SettingsDtos;
 using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,13 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<CarparkJobSettings>(builder.Configuration.GetSection("CsvSettings"));
+builder.Services.Configure<CarparkInfoJobSettings>(builder.Configuration.GetSection("CsvSettings"));
 
 builder.Services.AddQuartz(q =>
 {
     var jobKey = new JobKey("CarparkJob");
 
-    q.AddJob<CarparkJob>(opts => opts.WithIdentity(jobKey));
+    q.AddJob<CarparkInfoJob>(opts => opts.WithIdentity(jobKey));
     //q.UsePersistentStore(s => s.UseMicrosoftSQLite(""));
 
     q.AddTrigger(opts => opts
