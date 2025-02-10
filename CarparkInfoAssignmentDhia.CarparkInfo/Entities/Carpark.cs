@@ -18,8 +18,8 @@ public class Carpark
     public int CarParkDecks { get; set; }
     public int GantryHeight { get; set; }
     public bool CarParkBasement { get; set; }
-    public CarParkType? CarParkType { get; set; }
-    public ParkingSystemType? ParkingSystemType { get; set; }
-    public ShortTermParkingType? ShortTermParkingType { get; set; }
-    public FreeParkingType? FreeParkingType { get; set; }
+    public virtual CarParkType? CarParkType { get; set; }
+    public virtual ParkingSystemType? ParkingSystemType { get; set; }
+    public virtual ShortTermParkingType? ShortTermParkingType { get; set; }
+    public virtual FreeParkingType? FreeParkingType { get; set; }
 }

@@ -1,3 +1,4 @@
+using CarparkInfoAssignmentDhia.CarparkInfo;
 using CarparkInfoAssignmentDhia.Jobs;
 using CarparkInfoAssignmentDhia.SettingsDtos;
 using Quartz;
@@ -12,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<CarparkInfoJobSettings>(builder.Configuration.GetSection("CsvSettings"));
+
+builder.Services.AddPooledDbContextFactory<CarparkContext>(c => { });
 
 builder.Services.AddQuartz(q =>
 {

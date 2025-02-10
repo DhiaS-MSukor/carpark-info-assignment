@@ -12,8 +12,8 @@ public class ShortTermParkingTypeGetByName
         this.name = name;
     }
 
-    public Task<ShortTermParkingType[]> Query(DbSet<ShortTermParkingType> set, CancellationToken cancellationToken = default)
+    public IQueryable<ShortTermParkingType> Query(DbSet<ShortTermParkingType> set)
     {
-        return set.Where(x => x.Name == name).ToArrayAsync(cancellationToken);
+        return set.Where(x => x.Name == name);
     }
 }

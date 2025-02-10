@@ -17,6 +17,10 @@ public class CarparkContext : DbContext
     public DbSet<ShortTermParkingType> ShortTermParkingTypes { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new CarparkTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new CarparkConfiguration());
+        modelBuilder.ApplyConfiguration(new CarParkTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new FreeParkingTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new ParkingSystemTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new ShortTermParkingTypeConfiguration());
     }
 }

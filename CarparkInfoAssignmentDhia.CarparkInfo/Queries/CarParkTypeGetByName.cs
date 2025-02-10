@@ -16,8 +16,8 @@ public class CarParkTypeGetByName
         this.name = name;
     }
 
-    public Task<CarParkType[]> Query(DbSet<CarParkType> set, CancellationToken cancellationToken = default)
+    public IQueryable<CarParkType> Query(DbSet<CarParkType> set)
     {
-        return set.Where(x => x.Name == name).ToArrayAsync(cancellationToken);
+        return set.Where(x => x.Name == name);
     }
 }

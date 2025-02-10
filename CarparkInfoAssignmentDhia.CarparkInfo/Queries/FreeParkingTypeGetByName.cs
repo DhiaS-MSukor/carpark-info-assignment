@@ -12,8 +12,8 @@ public class FreeParkingTypeGetByName
         this.name = name;
     }
 
-    public Task<FreeParkingType[]> Query(DbSet<FreeParkingType> set, CancellationToken cancellationToken = default)
+    public IQueryable<FreeParkingType> Query(DbSet<FreeParkingType> set)
     {
-        return set.Where(x => x.Name == name).ToArrayAsync(cancellationToken);
+        return set.Where(x => x.Name == name);
     }
 }

@@ -12,8 +12,8 @@ public class ParkingSystemTypeGetByName
         this.name = name;
     }
 
-    public Task<ParkingSystemType[]> Query(DbSet<ParkingSystemType> set, CancellationToken cancellationToken = default)
+    public IQueryable<ParkingSystemType> Query(DbSet<ParkingSystemType> set)
     {
-        return set.Where(x => x.Name == name).ToArrayAsync(cancellationToken);
+        return set.Where(x => x.Name == name);
     }
 }

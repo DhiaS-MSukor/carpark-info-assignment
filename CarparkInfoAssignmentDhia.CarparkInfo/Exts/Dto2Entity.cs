@@ -3,6 +3,7 @@ using CarparkInfoAssignmentDhia.CarparkInfo.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,5 +40,21 @@ public static class Dto2Entity
             XCoord = decimal.Parse(dto.x_coord),
             YCoord = decimal.Parse(dto.y_coord),
         };
+    }
+
+    public static Carpark MergeRecord(this Carpark carpark, CsvDto dto)
+    {
+        var dtoCarpark = dto.ToCarpark();
+
+        carpark.Address = dtoCarpark.Address;
+        carpark.CarParkBasement = dtoCarpark.CarParkBasement;
+        carpark.CarParkDecks = dtoCarpark.CarParkDecks;
+        carpark.CarParkNo = dtoCarpark.CarParkNo;
+        carpark.GantryHeight = dtoCarpark.GantryHeight;
+        carpark.NightParking = dtoCarpark.NightParking;
+        carpark.XCoord = dtoCarpark.XCoord;
+        carpark.YCoord = dtoCarpark.YCoord;
+
+        return carpark;
     }
 }
