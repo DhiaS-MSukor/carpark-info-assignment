@@ -1,6 +1,6 @@
-﻿namespace CarparkInfoAssignmentDhia.Carpark.Dtos;
+﻿namespace CarparkInfoAssignmentDhia.CarparkInfo.Dtos;
 
-public record class CvsModel(
+public record class CsvDto(
     string car_park_no,
     string address,
     string x_coord,

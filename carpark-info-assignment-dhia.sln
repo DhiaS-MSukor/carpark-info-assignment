@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarparkInfoAssignmentDhia",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarparkInfoAssignmentDhia.CarparkInfo", "CarparkInfoAssignmentDhia.CarparkInfo\CarparkInfoAssignmentDhia.CarparkInfo.csproj", "{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarparkInfoAssignmentDhia.Core", "CarparkInfoAssignmentDhia.Core\CarparkInfoAssignmentDhia.Core.csproj", "{21EFCE74-777E-43C1-AB90-82BAF7954B01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CA60216-FA86-4B6E-84CD-37A94AC8BFBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21EFCE74-777E-43C1-AB90-82BAF7954B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21EFCE74-777E-43C1-AB90-82BAF7954B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21EFCE74-777E-43C1-AB90-82BAF7954B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21EFCE74-777E-43C1-AB90-82BAF7954B01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

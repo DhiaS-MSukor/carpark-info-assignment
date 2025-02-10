@@ -1,4 +1,4 @@
-﻿using CarparkInfoAssignmentDhia.Carpark.Dtos;
+﻿using CarparkInfoAssignmentDhia.CarparkInfo.Dtos;
 using CarparkInfoAssignmentDhia.SettingsDtos;
 using CsvHelper;
 using Microsoft.Extensions.Logging;
@@ -33,7 +33,7 @@ public class CarparkInfoJob : IJob
                 using var reader = new StreamReader(file);
                 using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-                var records = csv.GetRecordsAsync<CvsModel>(context.CancellationToken);
+                var records = csv.GetRecordsAsync<CsvDto>(context.CancellationToken);
 
                 await foreach (var record in records)
                 {
