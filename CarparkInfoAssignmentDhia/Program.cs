@@ -15,14 +15,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<CarparkInfoJobSettings>(builder.Configuration.GetSection("CarparkInfoJobSettings"));
 
-builder.Services.AddPooledDbContextFactory<CarparkContext>(c => c.UseSqlite("Data Source=.\\Dbs\\quartz.sqlite;"));
+builder.Services.AddPooledDbContextFactory<CarparkContext>(c =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("CarparkInfoDatabase")!;
+    c.UseSqlite(connectionString);
+});
 
 builder.Services.AddQuartz(q =>
 {
     q.UsePersistentStore(s =>
     {
+        var connectionString = builder.Configuration.GetConnectionString("QuartzDatabase")!;
+        s.UseMicrosoftSQLite(connectionString);
         s.UseNewtonsoftJsonSerializer();
-        s.UseMicrosoftSQLite("Data Source=.\\Dbs\\quartz.sqlite;");
     });
 
     var jobKey = new JobKey("CarparkJob");

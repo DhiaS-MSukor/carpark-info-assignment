@@ -34,13 +34,13 @@
     <h1>CarparkInfo.sqlite Database Schema</h1>
     <div id="toc">
       <ul>
-        <li class="table"><a href="#Carpark">Carpark</a></li>
-        <li class="table"><a href="#CarParkType">CarParkType</a></li>
-        <li class="table"><a href="#FreeParkingType">FreeParkingType</a></li>
-        <li class="table"><a href="#ParkingSystemType">ParkingSystemType</a></li>
-        <li class="table"><a href="#ShortTermParkingType">ShortTermParkingType</a></li>
-        <li class="table"><a href="#User">User</a></li>
-        <li class="table"><a href="#UserFavoriteCarpark">UserFavoriteCarpark</a></li>
+        <li class="table"><a href="#Carparks">Carparks</a></li>
+        <li class="table"><a href="#CarParkTypes">CarParkTypes</a></li>
+        <li class="table"><a href="#FreeParkingTypes">FreeParkingTypes</a></li>
+        <li class="table"><a href="#ParkingSystemTypes">ParkingSystemTypes</a></li>
+        <li class="table"><a href="#ShortTermParkingTypes">ShortTermParkingTypes</a></li>
+        <li class="table"><a href="#UserFavoriteCarparks">UserFavoriteCarparks</a></li>
+        <li class="table"><a href="#Users">Users</a></li>
       </ul>
     </div>
     <div class="table">
@@ -75,7 +75,7 @@
       </table>
     </div>
     <div class="table">
-      <h2 id="Carpark"><a href="#toc" class="tocref">⇧</a>Table Carpark</h2>
+      <h2 id="Carparks"><a href="#toc" class="tocref">⇧</a>Table Carparks</h2>
       <table>
         <thead>
           <tr>
@@ -87,7 +87,7 @@
         </thead>
         <tbody>
           <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_Carpark">◆</span>Id</th>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_Carparks">◆</span>Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
             <td><span class="flag">IDENTITY (1,1)</span></td>
@@ -96,25 +96,25 @@
             <th>CarParkType_Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
-            <td><span class="flag" title="FK_Carpark_0_0">⇨ <a href="#CarParkType">CarParkType</a>.Id</span></td>
+            <td><span class="flag" title="FK_Carparks_0_0">⇨ <a href="#CarParkTypes">CarParkTypes</a>.Id</span></td>
           </tr>
           <tr>
             <th>ParkingSystemType_Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
-            <td><span class="flag" title="FK_Carpark_2_0">⇨ <a href="#ParkingSystemType">ParkingSystemType</a>.Id</span></td>
+            <td><span class="flag" title="FK_Carparks_2_0">⇨ <a href="#ParkingSystemTypes">ParkingSystemTypes</a>.Id</span></td>
           </tr>
           <tr>
             <th>ShortTermParkingType_Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
-            <td><span class="flag" title="FK_Carpark_3_0">⇨ <a href="#ShortTermParkingType">ShortTermParkingType</a>.Id</span></td>
+            <td><span class="flag" title="FK_Carparks_3_0">⇨ <a href="#ShortTermParkingTypes">ShortTermParkingTypes</a>.Id</span></td>
           </tr>
           <tr>
             <th>FreeParkingType_Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
-            <td><span class="flag" title="FK_Carpark_1_0">⇨ <a href="#FreeParkingType">FreeParkingType</a>.Id</span></td>
+            <td><span class="flag" title="FK_Carparks_1_0">⇨ <a href="#FreeParkingTypes">FreeParkingTypes</a>.Id</span></td>
           </tr>
           <tr>
             <th>CarParkNo</th>
@@ -176,7 +176,7 @@
       </table>
     </div>
     <div class="table">
-      <h2 id="CarParkType"><a href="#toc" class="tocref">⇧</a>Table CarParkType</h2>
+      <h2 id="CarParkTypes"><a href="#toc" class="tocref">⇧</a>Table CarParkTypes</h2>
       <table>
         <thead>
           <tr>
@@ -188,7 +188,7 @@
         </thead>
         <tbody>
           <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_CarParkType">◆</span>Id</th>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_CarParkTypes">◆</span>Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
             <td><span class="flag">IDENTITY (1,1)</span></td>
@@ -204,7 +204,7 @@
       </table>
     </div>
     <div class="table">
-      <h2 id="FreeParkingType"><a href="#toc" class="tocref">⇧</a>Table FreeParkingType</h2>
+      <h2 id="FreeParkingTypes"><a href="#toc" class="tocref">⇧</a>Table FreeParkingTypes</h2>
       <table>
         <thead>
           <tr>
@@ -216,7 +216,7 @@
         </thead>
         <tbody>
           <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_FreeParkingType">◆</span>Id</th>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_FreeParkingTypes">◆</span>Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
             <td><span class="flag">IDENTITY (1,1)</span></td>
@@ -232,7 +232,7 @@
       </table>
     </div>
     <div class="table">
-      <h2 id="ParkingSystemType"><a href="#toc" class="tocref">⇧</a>Table ParkingSystemType</h2>
+      <h2 id="ParkingSystemTypes"><a href="#toc" class="tocref">⇧</a>Table ParkingSystemTypes</h2>
       <table>
         <thead>
           <tr>
@@ -244,7 +244,7 @@
         </thead>
         <tbody>
           <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_ParkingSystemType">◆</span>Id</th>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_ParkingSystemTypes">◆</span>Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
             <td><span class="flag">IDENTITY (1,1)</span></td>
@@ -260,7 +260,7 @@
       </table>
     </div>
     <div class="table">
-      <h2 id="ShortTermParkingType"><a href="#toc" class="tocref">⇧</a>Table ShortTermParkingType</h2>
+      <h2 id="ShortTermParkingTypes"><a href="#toc" class="tocref">⇧</a>Table ShortTermParkingTypes</h2>
       <table>
         <thead>
           <tr>
@@ -272,7 +272,7 @@
         </thead>
         <tbody>
           <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_ShortTermParkingType">◆</span>Id</th>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_ShortTermParkingTypes">◆</span>Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
             <td><span class="flag">IDENTITY (1,1)</span></td>
@@ -288,7 +288,7 @@
       </table>
     </div>
     <div class="table">
-      <h2 id="User"><a href="#toc" class="tocref">⇧</a>Table User</h2>
+      <h2 id="UserFavoriteCarparks"><a href="#toc" class="tocref">⇧</a>Table UserFavoriteCarparks</h2>
       <table>
         <thead>
           <tr>
@@ -300,43 +300,43 @@
         </thead>
         <tbody>
           <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_User">◆</span>Id</th>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_UserFavoriteCarparks">◆</span>User_Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
-            <td><span class="flag">IDENTITY (1,1)</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="table">
-      <h2 id="UserFavoriteCarpark"><a href="#toc" class="tocref">⇧</a>Table UserFavoriteCarpark</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="width:30ex">Name</th>
-            <th style="width:20ex">Type</th>
-            <th style="width:4ex">NULL</th>
-            <th>Comment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_UserFavoriteCarpark">◆</span>User_Id</th>
-            <td class="type">bigint</td>
-            <td class="null">☐</td>
-            <td><span class="flag" title="FK_UserFavoriteCarpark_1_0">⇨ <a href="#User">User</a>.Id</span></td>
+            <td><span class="flag" title="FK_UserFavoriteCarparks_1_0">⇨ <a href="#Users">Users</a>.Id</span></td>
           </tr>
           <tr>
             <th>Carpark_Id</th>
             <td class="type">bigint</td>
             <td class="null">☐</td>
-            <td><span class="flag" title="FK_UserFavoriteCarpark_0_0">⇨ <a href="#Carpark">Carpark</a>.Id</span></td>
+            <td><span class="flag" title="FK_UserFavoriteCarparks_0_0">⇨ <a href="#Carparks">Carparks</a>.Id</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table">
+      <h2 id="Users"><a href="#toc" class="tocref">⇧</a>Table Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30ex">Name</th>
+            <th style="width:20ex">Type</th>
+            <th style="width:4ex">NULL</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span class="pk" title="PRIMARY KEY sqlite_master_PK_Users">◆</span>Id</th>
+            <td class="type">bigint</td>
+            <td class="null">☐</td>
+            <td><span class="flag">IDENTITY (1,1)</span></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="footer">
                     Generated by <a href="http://SqlDbDoc.codeplex.com/">DB&gt;doc</a> and <a href="https://github.com/ErikEJ/SqlCeToolbox">SQLite/SQL Server Compact Toolbox</a> on
-                    February 11, 2025, 04:56:40</div>
+                    February 11, 2025, 05:25:46</div>
   </body>
 </html>
