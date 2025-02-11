@@ -39,7 +39,7 @@ public class CarparkInfoJob : IJob
             logger.LogInformation("Processing file: {file}", fullPath);
 
             using var dbContext = await contextFactory.CreateDbContextAsync(context.CancellationToken);
-            //using var transaction = dbContext.Database.BeginTransaction();
+            using var transaction = dbContext.Database.BeginTransaction();
 
             try
             {
@@ -80,15 +80,16 @@ public class CarparkInfoJob : IJob
 
                         await dbContext.AddAsync(newCarpark);
                     }
+
+                    await dbContext.SaveChangesAsync(context.CancellationToken);
                 }
 
-                await dbContext.SaveChangesAsync(context.CancellationToken);
-                //await transaction.CommitAsync(context.CancellationToken);
+                await transaction.CommitAsync(context.CancellationToken);
             }
             catch (Exception e)
             {
                 logger.LogError(e, "Error processing file {file}", file);
-                //await transaction.RollbackAsync(CancellationToken.None);
+                await transaction.RollbackAsync(CancellationToken.None);
             }
         }
     }
@@ -103,8 +104,9 @@ public class CarparkInfoJob : IJob
                                 .FirstOrDefaultAsync(cancellationToken);
         if (shortTermParkingType is null)
         {
-            shortTermParkingType = new ShortTermParkingType { Name = record.short_term_parking };
-            await shortTermParkingTypes.AddAsync(shortTermParkingType, cancellationToken);
+            var entity = new ShortTermParkingType { Name = record.short_term_parking };
+            var entry = await shortTermParkingTypes.AddAsync(entity, cancellationToken);
+            return entry.Entity;
         }
 
         return shortTermParkingType;
@@ -120,8 +122,9 @@ public class CarparkInfoJob : IJob
                                 .FirstOrDefaultAsync(cancellationToken);
         if (parkingSystemType is null)
         {
-            parkingSystemType = new ParkingSystemType { Name = record.type_of_parking_system };
-            await parkingSystemTypes.AddAsync(parkingSystemType, cancellationToken);
+            var entity = new ParkingSystemType { Name = record.type_of_parking_system };
+            var entry = await parkingSystemTypes.AddAsync(entity, cancellationToken);
+            return entry.Entity;
         }
 
         return parkingSystemType;
@@ -137,8 +140,9 @@ public class CarparkInfoJob : IJob
                                 .FirstOrDefaultAsync(cancellationToken);
         if (freeParkingType is null)
         {
-            freeParkingType = new FreeParkingType { Name = record.free_parking };
-            await freeParkingTypes.AddAsync(freeParkingType, cancellationToken);
+            var entity = new FreeParkingType { Name = record.free_parking };
+            var entry = await freeParkingTypes.AddAsync(entity, cancellationToken);
+            return entry.Entity;
         }
 
         return freeParkingType;
@@ -154,8 +158,9 @@ public class CarparkInfoJob : IJob
                                 .FirstOrDefaultAsync(cancellationToken);
         if (carparkType is null)
         {
-            carparkType = new CarParkType { Name = record.car_park_type };
-            await carParkTypes.AddAsync(carparkType, cancellationToken);
+            var entity = new CarParkType { Name = record.car_park_type };
+            var entry = await carParkTypes.AddAsync(entity, cancellationToken);
+            return entry.Entity;
         }
 
         return carparkType;
