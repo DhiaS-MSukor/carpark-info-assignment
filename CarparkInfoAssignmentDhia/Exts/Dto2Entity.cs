@@ -1,5 +1,5 @@
-﻿using CarparkInfoAssignmentDhia.CarparkInfo.Dtos;
-using CarparkInfoAssignmentDhia.CarparkInfo.Entities;
+﻿using CarparkInfoAssignmentDhia.CarparkInfo.Entities;
+using CarparkInfoAssignmentDhia.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarparkInfoAssignmentDhia.CarparkInfo.Exts;
+namespace CarparkInfoAssignmentDhia.Exts;
 public static class Dto2Entity
 {
     public static Carpark ToCarpark(this CsvDto dto)

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarparkInfoAssignmentDhia.CarparkInfo.Exts;
+namespace CarparkInfoAssignmentDhia.Exts;
 public static class EntityPropSetter
 {
     public static void SetCarParkType(this Carpark carpark, CarParkType? carParkType)

@@ -1,7 +1,10 @@
-﻿using CarparkInfoAssignmentDhia.Dtos;
+﻿using CarparkInfoAssignmentDhia.CarparkInfo;
+using CarparkInfoAssignmentDhia.CarparkInfo.Queries;
+using CarparkInfoAssignmentDhia.Dtos;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CarparkInfoAssignmentDhia.Controllers;
@@ -9,10 +12,25 @@ namespace CarparkInfoAssignmentDhia.Controllers;
 [Route("[controller]")]
 public class UserController : Controller
 {
+    private readonly IDbContextFactory<CarparkContext> dbContextFactory;
+
+    public UserController(IDbContextFactory<CarparkContext> dbContextFactory)
+    {
+        this.dbContextFactory = dbContextFactory;
+    }
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        if (request.Password == "password")// HACK: not actual validation logic
+        if (!int.TryParse(request.Username, out var userId))
+        {
+            return BadRequest("Invalid username.");
+        }
+
+        await using var context = await dbContextFactory.CreateDbContextAsync();
+        var isUserExists = await new UserGetById(userId).Query(context.Users).AnyAsync();
+
+        if (isUserExists && request.Password == "password")
         {
             var claims = new List<Claim>
                 {

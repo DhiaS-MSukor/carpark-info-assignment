@@ -1,4 +1,4 @@
-﻿namespace CarparkInfoAssignmentDhia.CarparkInfo.Dtos;
+﻿namespace CarparkInfoAssignmentDhia.Dtos;
 
 public record class CsvDto(
     string car_park_no,
