@@ -35,7 +35,7 @@ public static class Dto2Entity
             CarParkBasement = string2Bool(dto.car_park_basement),
             CarParkDecks = int.Parse(dto.car_park_decks),
             CarParkNo = dto.car_park_no,
-            GantryHeight = int.Parse(dto.gantry_height),
+            GantryHeight = decimal.Parse(dto.gantry_height),
             NightParking = string2Bool(dto.night_parking),
             XCoord = decimal.Parse(dto.x_coord),
             YCoord = decimal.Parse(dto.y_coord),
