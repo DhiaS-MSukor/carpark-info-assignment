@@ -16,7 +16,7 @@ public class Carpark
     public decimal YCoord { get; set; }
     public bool NightParking { get; set; }
     public int CarParkDecks { get; set; }
-    public int GantryHeight { get; set; }
+    public decimal GantryHeight { get; set; }
     public bool CarParkBasement { get; set; }
     public virtual CarParkType? CarParkType { get; set; }
     public virtual ParkingSystemType? ParkingSystemType { get; set; }
