@@ -3,7 +3,7 @@ using CarparkInfoAssignmentDhia.CarparkInfo.Dtos;
 using CarparkInfoAssignmentDhia.CarparkInfo.Entities;
 using CarparkInfoAssignmentDhia.CarparkInfo.Exts;
 using CarparkInfoAssignmentDhia.CarparkInfo.Queries;
-using CarparkInfoAssignmentDhia.SettingsDtos;
+using CarparkInfoAssignmentDhia.Dtos;
 using CsvHelper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

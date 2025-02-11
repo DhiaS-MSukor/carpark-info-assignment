@@ -1,4 +1,4 @@
-﻿namespace CarparkInfoAssignmentDhia.SettingsDtos;
+﻿namespace CarparkInfoAssignmentDhia.Dtos;
 
 public class CarparkInfoJobSettings
 {

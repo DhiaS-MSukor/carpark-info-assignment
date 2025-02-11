@@ -1,6 +1,7 @@
 using CarparkInfoAssignmentDhia.CarparkInfo;
+using CarparkInfoAssignmentDhia.Dtos;
 using CarparkInfoAssignmentDhia.Jobs;
-using CarparkInfoAssignmentDhia.SettingsDtos;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 
@@ -9,6 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/user/login";
+        options.LogoutPath = "/user/logout";
+    });
+builder.Services.AddAuthorization();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -58,6 +68,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
