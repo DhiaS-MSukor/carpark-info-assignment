@@ -9,5 +9,17 @@ public class UserFavoriteCarparkConfiguration : IEntityTypeConfiguration<UserFav
     public void Configure(EntityTypeBuilder<UserFavoriteCarpark> builder)
     {
         builder.HasKey(x => new { x.Carpark_Id, x.User_Id });
+
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.UserFavoriteCarparks)
+            .HasPrincipalKey(x => x.Id)
+            .HasForeignKey(x => x.User_Id)
+            .IsRequired();
+
+        builder.HasOne(x => x.Carpark)
+            .WithMany(x => x.UserFavoriteCarparks)
+            .HasPrincipalKey(x => x.Id)
+            .HasForeignKey(x => x.Carpark_Id)
+            .IsRequired();
     }
 }

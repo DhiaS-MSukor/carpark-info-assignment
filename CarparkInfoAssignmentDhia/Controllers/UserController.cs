@@ -27,8 +27,10 @@ public class UserController : Controller
             return BadRequest("Invalid username.");
         }
 
-        await using var context = await dbContextFactory.CreateDbContextAsync();
-        var isUserExists = await new UserGetById(userId).Query(context.Users).AnyAsync();
+        var cancellationToken = HttpContext.RequestAborted;
+
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        var isUserExists = await new UserGetById(userId).Query(context.Users).AnyAsync(cancellationToken);
 
         if (isUserExists && request.Password == "password")
         {

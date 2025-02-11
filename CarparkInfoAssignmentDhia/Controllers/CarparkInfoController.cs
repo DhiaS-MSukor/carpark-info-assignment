@@ -1,6 +1,8 @@
 ﻿using CarparkInfoAssignmentDhia.CarparkInfo;
 using CarparkInfoAssignmentDhia.CarparkInfo.Entities;
 using CarparkInfoAssignmentDhia.CarparkInfo.Queries;
+using CarparkInfoAssignmentDhia.Dtos;
+using CarparkInfoAssignmentDhia.Exts;
 using CarparkInfoAssignmentDhia.Weather.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,21 +21,30 @@ public class CarparkInfoController : Controller
         this.dbContextFactory = dbContextFactory;
     }
 
-    [HttpGet(Name = "GetCarpark")]
-    public async Task<IEnumerable<Carpark>> GetCarpark(
+    [HttpGet("GetCarpark")]
+    public async Task<IEnumerable<CsvDto>> GetCarpark(
             [FromQuery] bool? freeParking,
             [FromQuery] bool? nightParking,
-            [FromQuery] decimal? vehicleHeight)
+            [FromQuery] decimal? vehicleHeight,
+            [FromQuery] int take = 20)
     {
-        await using var context = await dbContextFactory.CreateDbContextAsync();
+        var cancellationToken = HttpContext.RequestAborted;
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        return await context.Carparks.ToListAsync();
+        var result = await new CarparkGetWithFilters(freeParking, nightParking, vehicleHeight)
+            .Query(context.Carparks)
+            .Take(take)
+            .ToListAsync(cancellationToken);
+
+        return result.Select(x => x.ToCsvDto());
     }
 
     [Authorize]
-    [HttpPost(Name = "AddToFavorite")]
+    [HttpPost("AddToFavorite")]
     public async Task<IActionResult> AddToFavorite([FromBody] string carparkNo)
     {
+        var cancellationToken = HttpContext.RequestAborted;
+
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
         if (userIdClaim == null)
         {
@@ -45,9 +56,9 @@ public class CarparkInfoController : Controller
             return BadRequest("Invalid user ID.");
         }
 
-        await using var context = await dbContextFactory.CreateDbContextAsync();
-        var user = await new UserGetById(userId).Query(context.Users).FirstAsync();
-        var carpark = await new CarParkGetByNo(carparkNo).Query(context.Carparks).FirstAsync();
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        var user = await new UserGetById(userId).Query(context.Users).FirstAsync(cancellationToken);
+        var carpark = await new CarparkGetByNo(carparkNo).Query(context.Carparks).FirstAsync(cancellationToken);
 
         var userFavouriteCarpark = new UserFavoriteCarpark
         {
@@ -57,11 +68,11 @@ public class CarparkInfoController : Controller
 
         var existing = await new UserFavoriteCarparkGetByUserIdCarparkId(user.Id, carpark.Id)
             .Query(context.UserFavoriteCarparks)
-            .AnyAsync();
+            .AnyAsync(cancellationToken);
         if (!existing)
         {
             context.UserFavoriteCarparks.Add(userFavouriteCarpark);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
         }
 
         return Ok();

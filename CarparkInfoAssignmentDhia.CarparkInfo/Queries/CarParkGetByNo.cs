@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarparkInfoAssignmentDhia.CarparkInfo.Queries;
 
-public class CarParkGetByNo
+public class CarparkGetByNo
 {
     private readonly string number;
 
-    public CarParkGetByNo(string number)
+    public CarparkGetByNo(string number)
     {
         this.number = number;
     }

@@ -56,7 +56,7 @@ public class CarparkInfoJob : IJob
                     var parkingSystemType = await GetParkingSystemType(dbContext.ParkingSystemTypes, record);
                     var shortTermParkingType = await GetShortTermParkingType(dbContext.ShortTermParkingTypes, record);
 
-                    var existing = await new CarParkGetByNo(record.car_park_no)
+                    var existing = await new CarparkGetByNo(record.car_park_no)
                         .Query(dbContext.Carparks)
                         .FirstOrDefaultAsync();
                     if (existing != null)
