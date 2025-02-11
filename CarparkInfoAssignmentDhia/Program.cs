@@ -13,12 +13,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<CarparkInfoJobSettings>(builder.Configuration.GetSection("CsvSettings"));
+builder.Services.Configure<CarparkInfoJobSettings>(builder.Configuration.GetSection("CarparkInfoJobSettings"));
 
-builder.Services.AddPooledDbContextFactory<CarparkContext>(c => c.UseSqlite("Data Source=:memory:;"));
+builder.Services.AddPooledDbContextFactory<CarparkContext>(c => c.UseSqlite("Data Source=.\\Dbs\\quartz.sqlite;"));
 
 builder.Services.AddQuartz(q =>
 {
+    q.UsePersistentStore(s =>
+    {
+        s.UseNewtonsoftJsonSerializer();
+        s.UseMicrosoftSQLite("Data Source=.\\Dbs\\quartz.sqlite;");
+    });
+
     var jobKey = new JobKey("CarparkJob");
 
     q.AddJob<CarparkInfoJob>(opts => opts.WithIdentity(jobKey));
